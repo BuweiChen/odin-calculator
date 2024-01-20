@@ -4,7 +4,8 @@ const addButton = document.querySelector("#add");
 const subButton = document.querySelector("#subtract");
 const divButton = document.querySelector("#divide");
 const multButton = document.querySelector("#multiply");
-const eqButton = document.querySelector("#equal");
+const eqButton = document.querySelector("#equals");
+const clearButton = document.querySelector("#clear");
 
 let displayNumber = "";
 let calculationResult = 0;
@@ -28,6 +29,38 @@ addButton.addEventListener("click", operationButtonFunction);
 subButton.addEventListener("click", operationButtonFunction);
 multButton.addEventListener("click", operationButtonFunction);
 divButton.addEventListener("click", operationButtonFunction);
+eqButton.addEventListener("click", () => {
+    const n1 = calculationResult;
+    const n2 = Number(displayNumber);
+    switch (lastOperation) {
+        case "add":
+            calculationResult = add(n1, n2);
+            break;
+        case "subtract":
+            calculationResult = subtract(n1, n2);
+            break;
+        case "multiply":
+            calculationResult = multiply(n1, n2);
+            break;
+        case "divide":
+            calculationResult = divide(n1, n2);
+            break;
+        default:
+            break;
+    }
+    displayNumber = String(calculationResult);
+    display.textContent = displayNumber;
+    calculationResult = 0;
+    lastOperation = e.target.getAttribute("id");
+    eraseOnNextNumber = true;
+});
+clearButton.addEventListener("click", () => {
+    displayNumber = "0";
+    calculationResult = 0;
+    display.textContent = displayNumber;
+    lastOperation = "add";
+    eraseOnNextNumber = true;
+})
 
 function add(a, b) {
     return a + b;
@@ -60,6 +93,8 @@ function operationButtonFunction(e) {
             break;
         case "divide":
             calculationResult = divide(n1, n2);
+            break;
+        default:
             break;
     }
     displayNumber = String(calculationResult);
