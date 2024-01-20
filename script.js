@@ -43,6 +43,11 @@ eqButton.addEventListener("click", () => {
             calculationResult = multiply(n1, n2);
             break;
         case "divide":
+            if (n2 == 0) {
+                alert("you tryna break something here? (divide by 0 error)");
+                clear();
+                return;
+            }
             calculationResult = divide(n1, n2);
             break;
         default:
@@ -54,13 +59,7 @@ eqButton.addEventListener("click", () => {
     lastOperation = e.target.getAttribute("id");
     eraseOnNextNumber = true;
 });
-clearButton.addEventListener("click", () => {
-    displayNumber = "0";
-    calculationResult = 0;
-    display.textContent = displayNumber;
-    lastOperation = "add";
-    eraseOnNextNumber = true;
-})
+clearButton.addEventListener("click", clear);
 
 function add(a, b) {
     return a + b;
@@ -92,6 +91,11 @@ function operationButtonFunction(e) {
             calculationResult = multiply(n1, n2);
             break;
         case "divide":
+            if (n2 == 0) {
+                alert("you tryna break something here? (divide by 0 error)");
+                clear();
+                return;
+            }
             calculationResult = divide(n1, n2);
             break;
         default:
@@ -100,5 +104,13 @@ function operationButtonFunction(e) {
     displayNumber = String(calculationResult);
     display.textContent = displayNumber;
     lastOperation = e.target.getAttribute("id");
+    eraseOnNextNumber = true;
+}
+
+function clear() {
+    displayNumber = "0";
+    calculationResult = 0;
+    display.textContent = displayNumber;
+    lastOperation = "add";
     eraseOnNextNumber = true;
 }
